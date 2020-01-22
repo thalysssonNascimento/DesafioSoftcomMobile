@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { View, StatusBar } from 'react-native';
 import Svg, { Path, Image } from 'react-native-svg';
 
@@ -17,6 +17,11 @@ import {
 
 // eslint-disable-next-line react/prop-types
 export default function SignIn({ navigation }) {
+    const passwordRef = useRef();
+    const cnpjRef = useRef();
+
+    function handleSubmit() {}
+
     return (
         <>
             <StatusBar barStyle="dark-content" backgroundColor="#fff" />
@@ -45,20 +50,30 @@ export default function SignIn({ navigation }) {
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Digite seu e-mail"
+                            returnKeyType="next"
+                            onSubmitEditing={() => cnpjRef.current.focus()}
                         />
                         <FormInput
                             icon="business"
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Digite seu CNPJ"
+                            ref={cnpjRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => passwordRef.current.focus()}
                         />
                         <FormInput
                             icon="lock"
                             secureTextEntry
                             placeholder="Digite sua senha"
+                            ref={passwordRef}
+                            returnKeyType="send"
+                            onSubmitEditing={handleSubmit}
                         />
 
-                        <SubmitButton onPress={() => {}}>ENTRAR</SubmitButton>
+                        <SubmitButton onPress={handleSubmit}>
+                            ENTRAR
+                        </SubmitButton>
                     </Form>
 
                     <SignLink

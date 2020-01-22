@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Image, StatusBar } from 'react-native';
 
 // import Input from '../../components/Input';
@@ -17,6 +17,11 @@ import {
 
 // eslint-disable-next-line react/prop-types
 export default function SignIn({ navigation }) {
+    const passwordRef = useRef();
+    const cnpjRef = useRef();
+
+    function handleSubmit() {}
+
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#F36E90" />
@@ -36,24 +41,31 @@ export default function SignIn({ navigation }) {
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Digite seu e-mail"
+                            returnKeyType="next"
+                            onSubmitEditing={() => cnpjRef.current.focus()}
                         />
                         <FormInput
                             icon="business"
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Digite seu CNPJ"
+                            ref={cnpjRef}
+                            returnKeyType="next"
+                            onSubmitEditing={() => passwordRef.current.focus()}
                         />
                         <FormInput
                             icon="lock"
                             secureTextEntry
                             placeholder="Digite sua senha"
+                            ref={passwordRef}
+                            returnKeyType="send"
+                            onSubmitEditing={handleSubmit}
                         />
 
-                        <SubmitButton onPress={() => {}}>
+                        <SubmitButton onPress={handleSubmit}>
                             CRIAR CONTA
                         </SubmitButton>
                     </Form>
-
                     <SignLink
                         onPress={() => {
                             // eslint-disable-next-line react/prop-types
