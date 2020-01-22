@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StatusBar } from 'react-native';
+import { Image, StatusBar } from 'react-native';
 
 // import Input from '../../components/Input';
 // import Button from '../../components/Button';
@@ -21,12 +21,10 @@ export default function SignIn({ navigation }) {
         <>
             <StatusBar barStyle="light-content" backgroundColor="#F36E90" />
             <Background>
-                <View>
-                    <Image
-                        style={{ width: 200, height: 100, marginLeft: 30 }}
-                        source={logo}
-                    />
-                </View>
+                <Image
+                    style={{ width: 200, height: 100, marginLeft: 30 }}
+                    source={logo}
+                />
 
                 <TextInforRegister>Crie sua conta</TextInforRegister>
 
