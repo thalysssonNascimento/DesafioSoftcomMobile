@@ -1,10 +1,13 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Image, StatusBar } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
 // import Input from '../../components/Input';
 // import Button from '../../components/Button';
 import Background from '../../components/Background';
 import logo from '../../assets/logoRegister.png';
+import { signUpRequest } from '../../store/modules/auth/actions';
+
 import {
     TextInforRegister,
     FormContainer,
@@ -17,11 +20,22 @@ import {
 
 // eslint-disable-next-line react/prop-types
 export default function SignIn({ navigation }) {
+    const dispatch = useDispatch();
+
     const emailRef = useRef();
     const passwordRef = useRef();
     const cnpjRef = useRef();
 
-    function handleSubmit() {}
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [cnpj, setCnpj] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loading = useSelector(state => state.auth.loading);
+
+    function handleSubmit() {
+        dispatch(signUpRequest(name, email, cnpj, password));
+    }
 
     return (
         <>
@@ -43,6 +57,8 @@ export default function SignIn({ navigation }) {
                             placeholder="Digite nome fantasia da sua empresa"
                             returnKeyType="next"
                             onSubmitEditing={() => emailRef.current.focus()}
+                            value={name}
+                            onChangeText={setName}
                         />
                         <FormInput
                             icon="email"
@@ -53,6 +69,8 @@ export default function SignIn({ navigation }) {
                             ref={emailRef}
                             returnKeyType="next"
                             onSubmitEditing={() => cnpjRef.current.focus()}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                         <FormInput
                             icon="card-membership"
@@ -62,6 +80,8 @@ export default function SignIn({ navigation }) {
                             ref={cnpjRef}
                             returnKeyType="next"
                             onSubmitEditing={() => passwordRef.current.focus()}
+                            value={cnpj}
+                            onChangeText={setCnpj}
                         />
                         <FormInput
                             icon="lock"
@@ -70,9 +90,11 @@ export default function SignIn({ navigation }) {
                             ref={passwordRef}
                             returnKeyType="send"
                             onSubmitEditing={handleSubmit}
+                            value={password}
+                            onChangeText={setPassword}
                         />
 
-                        <SubmitButton onPress={handleSubmit}>
+                        <SubmitButton loading={loading} onPress={handleSubmit}>
                             CRIAR CONTA
                         </SubmitButton>
                     </Form>

@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { View, StatusBar } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Svg, { Path, Image } from 'react-native-svg';
 
 import Background from '../../components/Background';
 import logo from '../../assets/logo.png';
+import { signInRequest } from '../../store/modules/auth/actions';
+
 import {
     FormContainer,
     Form,
@@ -15,10 +18,20 @@ import {
 
 // eslint-disable-next-line react/prop-types
 export default function SignIn({ navigation }) {
+    const dispatch = useDispatch();
+
     const passwordRef = useRef();
     const cnpjRef = useRef();
 
-    function handleSubmit() {}
+    const [email, setEmail] = useState('');
+    const [cnpj, setCnpj] = useState('');
+    const [password, setPassword] = useState('');
+
+    const loading = useSelector(state => state.auth.loading);
+
+    function handleSubmit() {
+        dispatch(signInRequest(email, cnpj, password));
+    }
 
     return (
         <>
@@ -50,15 +63,19 @@ export default function SignIn({ navigation }) {
                             placeholder="Digite seu e-mail"
                             returnKeyType="next"
                             onSubmitEditing={() => cnpjRef.current.focus()}
+                            value={email}
+                            onChangeText={setEmail}
                         />
                         <FormInput
                             icon="business"
                             autoCorrect={false}
                             autoCapitalize="none"
-                            placeholder="Digite seu CNPJ"
+                            placeholder="Ou digite seu CNPJ"
                             ref={cnpjRef}
                             returnKeyType="next"
                             onSubmitEditing={() => passwordRef.current.focus()}
+                            value={cnpj}
+                            onChangeText={setCnpj}
                         />
                         <FormInput
                             icon="lock"
@@ -67,9 +84,11 @@ export default function SignIn({ navigation }) {
                             ref={passwordRef}
                             returnKeyType="send"
                             onSubmitEditing={handleSubmit}
+                            value={password}
+                            onChangeText={setPassword}
                         />
 
-                        <SubmitButton onPress={handleSubmit}>
+                        <SubmitButton loading={loading} onPress={handleSubmit}>
                             ENTRAR
                         </SubmitButton>
                     </Form>

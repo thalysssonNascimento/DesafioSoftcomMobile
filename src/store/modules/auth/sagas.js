@@ -7,9 +7,13 @@ import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
     try {
-        const { email, password } = payload;
+        const { email, cnpj, password } = payload;
 
-        const response = yield call(api.post, '/sessions', { email, password });
+        const response = yield call(api.post, '/auth/sign_in', {
+            email,
+            cnpj,
+            password,
+        });
 
         const { token, user } = response.data;
 
@@ -35,7 +39,7 @@ export function* signUp({ payload }) {
 
         yield call(
             api.post,
-            '/users',
+            '/user',
             {
                 name,
                 email,
