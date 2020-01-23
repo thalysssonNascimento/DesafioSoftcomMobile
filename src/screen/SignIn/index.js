@@ -2,8 +2,6 @@ import React, { useRef } from 'react';
 import { View, StatusBar } from 'react-native';
 import Svg, { Path, Image } from 'react-native-svg';
 
-// import Input from '../../components/Input';
-// import Button from '../../components/Button';
 import Background from '../../components/Background';
 import logo from '../../assets/logo.png';
 import {

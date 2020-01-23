@@ -17,6 +17,7 @@ import {
 
 // eslint-disable-next-line react/prop-types
 export default function SignIn({ navigation }) {
+    const emailRef = useRef();
     const passwordRef = useRef();
     const cnpjRef = useRef();
 
@@ -36,16 +37,25 @@ export default function SignIn({ navigation }) {
                 <FormContainer>
                     <Form>
                         <FormInput
+                            icon="business"
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                            placeholder="Digite nome fantasia da sua empresa"
+                            returnKeyType="next"
+                            onSubmitEditing={() => emailRef.current.focus()}
+                        />
+                        <FormInput
                             icon="email"
                             keyboardType="email-address"
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Digite seu e-mail"
+                            ref={emailRef}
                             returnKeyType="next"
                             onSubmitEditing={() => cnpjRef.current.focus()}
                         />
                         <FormInput
-                            icon="business"
+                            icon="card-membership"
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Digite seu CNPJ"
