@@ -40,6 +40,8 @@ target 'lojavirtual' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
+  pod 'react-native-text-input-mask', :path => '../node_modules/react-native-text-input-mask'
+
   target 'lojavirtualTests' do
     inherit! :search_paths
     # Pods for testing

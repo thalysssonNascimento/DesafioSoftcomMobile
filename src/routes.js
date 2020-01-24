@@ -5,6 +5,8 @@ import SignIn from './screen/SignIn';
 import SignUp from './screen/SignUp';
 
 import Dashboard from './screen/Dashboard';
+import Profile from './screen/Profile';
+import Shopping from './screen/Shopping';
 
 export default (signedIn = false) =>
     createAppContainer(
@@ -14,10 +16,24 @@ export default (signedIn = false) =>
                     SignIn,
                     SignUp,
                 }),
-                App: createMaterialTopTabNavigator({
-                    Dashboard,
-                }),
+                App: createMaterialTopTabNavigator(
+                    {
+                        Dashboard,
+                        Shopping,
+                        Profile,
+                    },
+                    {
+                        tabBarOptions: {
+                            keyboardHidesTabBar: true,
+                            activeTintColor: '#fff',
+                            inactiveTintColor: 'rgba(255,255,255, 0.4)',
+                            style: {
+                                backgroundColor: '#EE3A67',
+                            },
+                        },
+                    }
+                ),
             },
-            { initialRouteName: signedIn ? 'App' : 'Sign' }
+            { initialRouteName: signedIn ? 'App' : 'SignIn' }
         )
     );

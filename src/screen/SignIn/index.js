@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
-import { View, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { View, StatusBar } from 'react-native';
+import TextInputMask from 'react-native-text-input-mask';
 import Svg, { Path, Image } from 'react-native-svg';
 
 import Background from '../../components/Background';
@@ -66,12 +67,14 @@ export default function SignIn({ navigation }) {
                             value={email}
                             onChangeText={setEmail}
                         />
-                        <FormInput
+                        <TextInputMask
                             icon="business"
                             autoCorrect={false}
                             autoCapitalize="none"
                             placeholder="Ou digite seu CNPJ"
                             ref={cnpjRef}
+                            mask="+1 ([000]) [000] [00] [00]"
+                            keyboardType="phone-pad"
                             returnKeyType="next"
                             onSubmitEditing={() => passwordRef.current.focus()}
                             value={cnpj}

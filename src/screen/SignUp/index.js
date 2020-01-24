@@ -78,6 +78,7 @@ export default function SignIn({ navigation }) {
                             autoCapitalize="none"
                             placeholder="Digite seu CNPJ"
                             ref={cnpjRef}
+                            keyboardType="phone-pad"
                             returnKeyType="next"
                             onSubmitEditing={() => passwordRef.current.focus()}
                             value={cnpj}

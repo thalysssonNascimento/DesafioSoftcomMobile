@@ -3,10 +3,10 @@ import { View } from 'react-native';
 
 // import { Container } from './styles';
 
-export default function Dashboard() {
+export default function Shopping() {
     return <View />;
 }
 
-Dashboard.navigationOptions = {
-    tabBarLabel: 'Ofertas',
+Shopping.navigationOptions = {
+    tabBarLabel: 'Compras',
 };
