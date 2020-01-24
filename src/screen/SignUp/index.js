@@ -13,6 +13,7 @@ import {
     FormContainer,
     Form,
     FormInput,
+    FormInputMask,
     SubmitButton,
     SignLink,
     SignLlinkText,
@@ -72,17 +73,18 @@ export default function SignIn({ navigation }) {
                             value={email}
                             onChangeText={setEmail}
                         />
-                        <FormInput
+                        <FormInputMask
+                            type="cnpj"
+                            value={cnpj}
                             icon="card-membership"
                             autoCorrect={false}
                             autoCapitalize="none"
-                            placeholder="Digite seu CNPJ"
+                            placeholder="Ou digite seu CNPJ"
                             ref={cnpjRef}
                             keyboardType="phone-pad"
                             returnKeyType="next"
                             onSubmitEditing={() => passwordRef.current.focus()}
-                            value={cnpj}
-                            onChangeText={setCnpj}
+                            onChangeText={data => setCnpj(data)}
                         />
                         <FormInput
                             icon="lock"
