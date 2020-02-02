@@ -1,6 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import api from '../../services/api';
 
 import {
     FormContainer,
@@ -11,20 +13,20 @@ import {
 } from './styles';
 
 export default function ProductAdd({ navigation }) {
-    const dispatch = useDispatch();
-
-    const nameRef = useRef();
-    const descriptionRef = useRef();
-    const priceRef = useRef();
-
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
 
     const loading = useSelector(state => state.auth.loading);
 
-    function handleSubmitAdd() {
-        // dispatch(signUpRequest(name, description, price, password));
+    async function handleProductAdd() {
+        await api.post('/user/item', {
+            name,
+            description,
+            price,
+        });
+        // alert(`${name}, ${description}, ${price}`);
+
         navigation.navigate('ProductList');
     }
 
@@ -33,41 +35,30 @@ export default function ProductAdd({ navigation }) {
             <FormContainer>
                 <Form>
                     <FormInput
-                        icon="business"
                         autoCorrect={false}
                         autoCapitalize="none"
                         placeholder="Digite nome do produto"
-                        returnKeyType="next"
-                        onSubmitEditing={() => nameRef.current.focus()}
                         value={name}
                         onChangeText={setName}
                     />
                     <FormInput
-                        icon="email"
                         autoCorrect={false}
                         autoCapitalize="none"
                         placeholder="Digite a descrição do produto"
-                        ref={nameRef}
-                        returnKeyType="next"
-                        onSubmitEditing={() => descriptionRef.current.focus()}
                         value={description}
                         onChangeText={setDescription}
                     />
-                    <FormInputMask
-                        type="money"
-                        value={price}
-                        icon="card-membership"
+                    <FormInput
+                        // type="money"
                         autoCorrect={false}
                         autoCapitalize="none"
                         placeholder="Digite o valor do produto"
-                        ref={descriptionRef}
+                        value={price}
+                        onChangeText={setPrice}
                         keyboardType="phone-pad"
-                        returnKeyType="next"
-                        onSubmitEditing={() => priceRef.current.focus()}
-                        onChangeText={data => setPrice(data)}
                     />
 
-                    <SubmitButton loading={loading} onPress={handleSubmitAdd}>
+                    <SubmitButton loading={loading} onPress={handleProductAdd}>
                         CADASTRAR PRODUTO
                     </SubmitButton>
                 </Form>
