@@ -4,7 +4,16 @@ import { useDispatch } from 'react-redux';
 
 import { signOut } from '../../store/modules/auth/actions';
 
-import { Container, Logout, LogoutText } from './styles';
+import {
+    Container,
+    Avatar,
+    Logout,
+    LogoutText,
+    ContainerInfo,
+    Info,
+    DataInfo,
+    EditProfile,
+} from './styles';
 
 // eslint-disable-next-line react/prop-types
 export default function Profile() {
@@ -16,6 +25,11 @@ export default function Profile() {
 
     return (
         <Container>
+            <Avatar
+                source={{
+                    uri: 'https://api.adorable.io/avatar/256/lojavirtual.png',
+                }}
+            />
             <Logout
                 onPress={() => {
                     handleLogout();
@@ -23,6 +37,16 @@ export default function Profile() {
             >
                 <LogoutText>SAIR</LogoutText>
             </Logout>
+
+            <ContainerInfo>
+                <Info>Raxão social</Info>
+                <DataInfo>Thalysson Festas</DataInfo>
+                <Info>Email</Info>
+                <DataInfo>thalyssonwg.nascimento@gmail.com</DataInfo>
+                <Info>CNPJ</Info>
+                <DataInfo>000.0000.000001/00</DataInfo>
+                <EditProfile>EDITAR PERFIL</EditProfile>
+            </ContainerInfo>
         </Container>
     );
 }

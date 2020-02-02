@@ -2,8 +2,6 @@ import React, { useRef, useState } from 'react';
 import { Image, StatusBar } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import Input from '../../components/Input';
-// import Button from '../../components/Button';
 import Background from '../../components/Background';
 import logo from '../../assets/logoRegister.png';
 import { signUpRequest } from '../../store/modules/auth/actions';
@@ -79,7 +77,7 @@ export default function SignIn({ navigation }) {
                             icon="card-membership"
                             autoCorrect={false}
                             autoCapitalize="none"
-                            placeholder="Ou digite seu CNPJ"
+                            placeholder="Digite seu CNPJ"
                             ref={cnpjRef}
                             keyboardType="phone-pad"
                             returnKeyType="next"

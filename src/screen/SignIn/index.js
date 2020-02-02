@@ -17,7 +17,6 @@ import {
     SignLlinkText,
 } from './styles';
 
-// eslint-disable-next-line react/prop-types
 export default function SignIn({ navigation }) {
     const dispatch = useDispatch();
 
