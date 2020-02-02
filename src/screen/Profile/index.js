@@ -39,7 +39,7 @@ export default function Profile() {
             </Logout>
 
             <ContainerInfo>
-                <Info>Raxão social</Info>
+                <Info>Razão social</Info>
                 <DataInfo>Thalysson Festas</DataInfo>
                 <Info>Email</Info>
                 <DataInfo>thalyssonwg.nascimento@gmail.com</DataInfo>
