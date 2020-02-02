@@ -26,20 +26,22 @@ export const LogoutText = styled.Text`
 
 export const ContainerInfo = styled.View`
     padding: 30px 10px;
-    background: #fff;
     border-radius: 4px;
     width: 100%;
     margin-top: 30px;
 `;
 
 export const Info = styled.Text`
-    color: #888;
+    color: #333;
 `;
 
 export const DataInfo = styled.Text`
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 10px;
+    background: #fff;
+    padding: 15px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin: 10px 0;
+    color: #888;
 `;
 
 export const EditProfile = styled(Button)`
