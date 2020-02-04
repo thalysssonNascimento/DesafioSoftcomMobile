@@ -46,3 +46,13 @@ export const Description = styled.Text`
     font-size: 13px;
     margin-top: 4px;
 `;
+
+export const Date = styled.Text``;
+
+export const Price = styled.Text`
+    font-size: 18px;
+`;
+
+export const Payment = styled.Text`
+    color: #73a580;
+`;

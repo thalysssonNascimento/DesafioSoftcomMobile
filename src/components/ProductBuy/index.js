@@ -8,9 +8,12 @@ import {
     Info,
     Title,
     Description,
+    Date,
+    Price,
+    Payment,
 } from './styles';
 
-export default function ProductBuy() {
+export default function ProductBuy({ data }) {
     return (
         <Container>
             <ContainerItem>
@@ -22,10 +25,11 @@ export default function ProductBuy() {
                         }}
                     />
                     <Info>
-                        <Title>Iphone 11</Title>
-                        <Description>Descrição do Iphone</Description>
-                        <Description>Data</Description>
-                        <Description>Valor</Description>
+                        <Title>{data.name}</Title>
+                        <Description>{data.description}</Description>
+                        <Date>{data.date}</Date>
+                        <Price>{data.price}</Price>
+                        <Payment>{data.form_of_payment}</Payment>
                     </Info>
                 </Left>
             </ContainerItem>
