@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 
-import { Container, List } from './styles';
-import ProductRegister from '../../components/ProductRegister';
 import api from '../../services/api';
+import ProductRegister from '../../components/ProductRegister';
+
+import { Container, List } from './styles';
 
 function ProductList({ navigation, isFocused }) {
-    const [productRegister, setProductRegister] = useState([{}]);
+    const [productRegisterList, setProductRegisterList] = useState([{}]);
 
     async function loadProductRegisters() {
         const response = await api.get('/user/item');
-
-        setProductRegister(response.data);
+        setProductRegisterList(response.data);
     }
 
     useEffect(() => {
@@ -20,6 +20,12 @@ function ProductList({ navigation, isFocused }) {
             loadProductRegisters();
         }
     }, [isFocused]);
+
+    function itemDeleted(id) {
+        setProductRegisterList(
+            productRegisterList.filter(product => product.id !== id)
+        );
+    }
 
     return (
         <Container>
@@ -30,10 +36,14 @@ function ProductList({ navigation, isFocused }) {
                 <Text>Cadastrar Produto</Text>
             </TouchableOpacity>
             <List
-                data={productRegister}
+                data={productRegisterList}
                 keyExtractor={item => String(item.id)}
                 renderItem={({ item }) => (
-                    <ProductRegister navigation={navigation} data={item} />
+                    <ProductRegister
+                        onDelete={itemDeleted}
+                        navigation={navigation}
+                        data={item}
+                    />
                 )}
             />
         </Container>

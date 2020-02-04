@@ -1,6 +1,4 @@
 import styled from 'styled-components/native';
-import { TouchableOpacity } from 'react-native';
-import Button from '../Button';
 
 export const Container = styled.View`
     margin-bottom: 15px;
@@ -10,7 +8,6 @@ export const Container = styled.View`
 
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
     justify-content: space-between;
 `;
 
@@ -49,12 +46,6 @@ export const Description = styled.Text`
     font-size: 13px;
     margin-top: 4px;
 `;
-
-// export const ChooseItemButton = styled(Button)`
-//     background: #2ecc71;
-//     margin: 0;
-//     margin-top: 15px;
-// `;
 
 export const Price = styled.Text`
     font-weight: bold;

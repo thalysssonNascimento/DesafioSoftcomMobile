@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { withNavigationFocus } from 'react-navigation';
+
+import api from '../../services/api';
 // import { View } from 'react-native';
 
 import { signOut } from '../../store/modules/auth/actions';
@@ -16,8 +19,21 @@ import {
 } from './styles';
 
 // eslint-disable-next-line react/prop-types
-export default function Profile() {
+function Profile({ isFocused }) {
     const dispatch = useDispatch();
+
+    const [dataUser, setDataUser] = useState([]);
+
+    async function loadDataUser() {
+        const response = await api.get('user/');
+        setDataUser(response.data);
+    }
+
+    useEffect(() => {
+        if (isFocused) {
+            loadDataUser();
+        }
+    }, [isFocused]);
 
     function handleLogout() {
         dispatch(signOut());
@@ -40,11 +56,11 @@ export default function Profile() {
 
             <ContainerInfo>
                 <Info>Razão social</Info>
-                <DataInfo>Thalysson Festas</DataInfo>
+                <DataInfo>{dataUser.name}</DataInfo>
                 <Info>Email</Info>
-                <DataInfo>thalyssonwg.nascimento@gmail.com</DataInfo>
+                <DataInfo>{dataUser.email}</DataInfo>
                 <Info>CNPJ</Info>
-                <DataInfo>000.0000.000001/00</DataInfo>
+                <DataInfo>{dataUser.cnpj}</DataInfo>
                 <EditProfile>EDITAR PERFIL</EditProfile>
             </ContainerInfo>
         </Container>
@@ -54,3 +70,5 @@ export default function Profile() {
 Profile.navigationOptions = {
     tabBarLabel: 'Perfil',
 };
+
+export default withNavigationFocus(Profile);

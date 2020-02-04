@@ -35,18 +35,3 @@ export const SubmitButton = styled(Button)`
     margin-top: 5px;
     background: #2e9fff;
 `;
-
-export const SignLink = styled.TouchableOpacity`
-    margin-top: 30px;
-`;
-
-export const SignLlinkText = styled.Text`
-    color: #fff;
-    font-size: 13px;
-`;
-
-export const TextInforRegister = styled.Text`
-    color: #fff;
-    font-size: 42px;
-    margin-left: 30px;
-`;

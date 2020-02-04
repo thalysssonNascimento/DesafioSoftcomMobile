@@ -1,4 +1,5 @@
 import React from 'react';
+import NumberFormat from 'react-number-format';
 
 import {
     Container,
@@ -10,9 +11,10 @@ import {
     Description,
     ChooseItemButton,
     Price,
+    Business,
 } from './styles';
 
-export default function Product() {
+export default function Product({ data }) {
     return (
         <Container>
             <ContainerItem>
@@ -24,9 +26,17 @@ export default function Product() {
                         }}
                     />
                     <Info>
-                        <Title>Iphone 11</Title>
-                        <Description>Descrição do Iphone</Description>
-                        <Price>55,00</Price>
+                        <Business>Empresa: {data.user.name}</Business>
+                        <Title>{data.name}</Title>
+                        <Description>{data.description}</Description>
+
+                        <NumberFormat
+                            value={data.price}
+                            displayType="text"
+                            thousandSeparator
+                            prefix="R$ "
+                            renderText={value => <Price>{value}</Price>}
+                        />
                     </Info>
                 </Left>
             </ContainerItem>

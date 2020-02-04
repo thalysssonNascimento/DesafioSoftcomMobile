@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import NumberFormat from 'react-number-format';
 
 import {
     Container,
@@ -15,12 +16,14 @@ import {
 
 import api from '../../services/api';
 
-export default function ProductRegister({ data, navigation }) {
-    const [products, setProducts] = useState([]);
-
+export default function ProductRegister({ data, navigation, onDelete }) {
     async function handleDeleteItemUser(id) {
-        await api.delete(`/user/item/${id}`);
-        setProducts(products.filter(product => product.id !== Number(id)));
+        try {
+            await api.delete(`/user/item/${id}`);
+            onDelete(data.id);
+        } catch (error) {
+            console.tron.log(error);
+        }
     }
 
     return (
@@ -36,7 +39,13 @@ export default function ProductRegister({ data, navigation }) {
                     <Info>
                         <Title>{data.name}</Title>
                         <Description>{data.description}</Description>
-                        <Price>{data.price}</Price>
+                        <NumberFormat
+                            value={data.price}
+                            displayType="text"
+                            thousandSeparator
+                            prefix="R$ "
+                            renderText={value => <Price>{value}</Price>}
+                        />
                     </Info>
                     <TouchableOpacity
                         onPress={() => handleDeleteItemUser(data.id)}
@@ -48,7 +57,7 @@ export default function ProductRegister({ data, navigation }) {
 
             <TouchableOpacity
                 style={{ alignItems: 'center', marginTop: 20 }}
-                onPress={() => navigation.navigate('ProductUpdate')}
+                onPress={() => navigation.navigate('ProductUpdate', { data })}
             >
                 <Text>ATUALIZAR</Text>
             </TouchableOpacity>

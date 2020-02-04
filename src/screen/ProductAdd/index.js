@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { useSelector } from 'react-redux';
+import NumberFormat from 'react-number-format';
 
 import api from '../../services/api';
 
@@ -20,14 +21,18 @@ export default function ProductAdd({ navigation }) {
     const loading = useSelector(state => state.auth.loading);
 
     async function handleProductAdd() {
-        await api.post('/user/item', {
-            name,
-            description,
-            price,
-        });
-        // alert(`${name}, ${description}, ${price}`);
+        try {
+            await api.post('/user/item', {
+                name,
+                description,
+                price,
+            });
+            // alert(`${name}, ${description}, ${price}`);
 
-        navigation.navigate('ProductList');
+            navigation.navigate('ProductList');
+        } catch (error) {
+            alert(error);
+        }
     }
 
     return (
@@ -48,16 +53,20 @@ export default function ProductAdd({ navigation }) {
                         value={description}
                         onChangeText={setDescription}
                     />
-                    <FormInput
-                        // type="money"
-                        autoCorrect={false}
-                        autoCapitalize="none"
-                        placeholder="Digite o valor do produto"
+                    <FormInputMask
+                        type="money"
+                        options={{
+                            precision: 2,
+                            separator: '.',
+                            delimiter: '.',
+                            unit: '',
+                            suffixUnit: '',
+                        }}
                         value={price}
-                        onChangeText={setPrice}
-                        keyboardType="phone-pad"
+                        onChangeText={data => {
+                            setPrice(data);
+                        }}
                     />
-
                     <SubmitButton loading={loading} onPress={handleProductAdd}>
                         CADASTRAR PRODUTO
                     </SubmitButton>

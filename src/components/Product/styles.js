@@ -38,7 +38,7 @@ export const Info = styled.View`
 
 export const Title = styled.Text`
     font-weight: bold;
-    font-size: 14px;
+    font-size: 18px;
     color: #333;
 `;
 
@@ -58,5 +58,10 @@ export const ChooseItemButton = styled(Button)`
 export const Price = styled.Text`
     font-weight: bold;
     font-size: 24px;
+    color: #333;
+`;
+
+export const Business = styled.Text`
+    font-size: 14px;
     color: #333;
 `;

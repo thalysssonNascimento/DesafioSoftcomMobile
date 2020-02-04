@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import api from '../../services/api';
 
 import {
     FormContainer,
@@ -11,21 +13,31 @@ import {
 } from './styles';
 
 export default function ProductUpadate({ navigation }) {
-    const dispatch = useDispatch();
+    const product = navigation.getParam('data');
 
     const nameRef = useRef();
     const descriptionRef = useRef();
     const priceRef = useRef();
 
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
+    const [name, setName] = useState(product.name);
+    const [description, setDescription] = useState(product.description);
+    const [price, setPrice] = useState(product.price);
 
     const loading = useSelector(state => state.auth.loading);
 
-    function handleSubmitUpdate() {
-        // dispatch(signUpRequest(name, description, price, password));
-        navigation.navigate('ProductList');
+    async function handleSubmitUpdate() {
+        try {
+            await api.put(`user/item/${product.id}`, {
+                name,
+                description,
+                price,
+            });
+
+            navigation.navigate('ProductList');
+        } catch (error) {
+            // eslint-disable-next-line no-undef
+            alert(error.message);
+        }
     }
 
     return (
@@ -33,17 +45,15 @@ export default function ProductUpadate({ navigation }) {
             <FormContainer>
                 <Form>
                     <FormInput
-                        icon="business"
                         autoCorrect={false}
                         autoCapitalize="none"
-                        placeholder="Digite nome do produto"
+                        placeholder="Digite o nome do produto"
                         returnKeyType="next"
                         onSubmitEditing={() => nameRef.current.focus()}
                         value={name}
                         onChangeText={setName}
                     />
                     <FormInput
-                        icon="email"
                         autoCorrect={false}
                         autoCapitalize="none"
                         placeholder="Digite a descrição do produto"
@@ -55,23 +65,26 @@ export default function ProductUpadate({ navigation }) {
                     />
                     <FormInputMask
                         type="money"
-                        value={price}
-                        icon="card-membership"
-                        autoCorrect={false}
-                        autoCapitalize="none"
                         placeholder="Digite o valor do produto"
-                        ref={descriptionRef}
                         keyboardType="phone-pad"
-                        returnKeyType="next"
-                        onSubmitEditing={() => priceRef.current.focus()}
-                        onChangeText={data => setPrice(data)}
+                        options={{
+                            precision: 2,
+                            separator: '.',
+                            delimiter: '.',
+                            unit: '',
+                            suffixUnit: '',
+                        }}
+                        value={price}
+                        onChangeText={data => {
+                            setPrice(data);
+                        }}
                     />
 
                     <SubmitButton
                         loading={loading}
                         onPress={handleSubmitUpdate}
                     >
-                        Atualizar PRODUTO
+                        Atualizar Produto
                     </SubmitButton>
                 </Form>
             </FormContainer>

@@ -1,18 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 
 import { Container, List } from './styles';
 import Product from '../../components/Product';
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+import api from '../../services/api';
 
-export default function Dashboard() {
+function Dashboard({ isFocused }) {
+    const [productListForPurchase, setProductListForPurchase] = useState([]);
+
+    async function loadProductListForPurchase() {
+        const response = await api.get('list-product/');
+
+        setProductListForPurchase(response.data);
+    }
+
+    useEffect(() => {
+        if (isFocused) {
+            loadProductListForPurchase();
+        }
+    }, [isFocused]);
+
     return (
         <Container>
             <StatusBar barStyle="light-content" backgroundColor="#EE3A67" />
             <List
-                data={data}
-                keyExtractor={item => String(item)}
+                data={productListForPurchase}
+                keyExtractor={item => String(item.id)}
                 renderItem={({ item }) => <Product data={item} />}
             />
         </Container>
@@ -22,3 +37,5 @@ export default function Dashboard() {
 Dashboard.navigationOptions = {
     tabBarLabel: 'Ofertas',
 };
+
+export default withNavigationFocus(Dashboard);

@@ -10,7 +10,7 @@ import {
     Description,
 } from './styles';
 
-export default function BuyProduct() {
+export default function ProductBuy() {
     return (
         <Container>
             <ContainerItem>
